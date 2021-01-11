@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	flagRegex          = `(http[s]?:\/\/.*\.(gif|png|jpg|jpeg))(\W)`
+	flagRegex          = `(http[s]?:\/\/\S*?\.(gif|png|jpg|jpeg))(\W)`
 	flagDestinationURL = "https://cdn.kotatsu.club"
 	flagBlobStorageURL = "https://kotatsuclubassets.blob.core.windows.net/$web"
 	flagDirectory      = "content/post"
@@ -60,7 +60,7 @@ func main() {
 		for _, change := range changes {
 			err := migrator.Migrate(*change, flagDryRun)
 			if err != nil {
-				log.Fatal(err)
+				log.Println("migration failed: " + err.Error())
 			}
 		}
 
